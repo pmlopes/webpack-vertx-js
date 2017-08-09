@@ -1,0 +1,26 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+
+  "author": "Paulo Lopes",
+  "license": "MIT",
+
+  "scripts": {
+    "prestart": "webpack",
+    "start": "java -jar run.jar",
+
+    "watch": "npm run start -- --redeploy=\"src/**\" --on-redeploy=\"npm run watch\""
+  },
+
+  "dependencies": {
+  },
+
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "webpack": "^2.2.0",
+    "webpack-vertx-plugin": "0.0.1"
+  }
+}

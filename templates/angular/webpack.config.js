@@ -62,14 +62,11 @@ module.exports = (env) => {
 
   // Configuration for server-side (prerendering) bundle suitable for running in Node
   const serverBundleConfig = merge(sharedConfig, {
-    resolve: {mainFields: ['main']},
     entry: {'main-server': './src/main/ts/boot.server.ts'},
     plugins: [
       new webpack.DllReferencePlugin({
         context: __dirname,
-        manifest: require('./src/main/ts/dist/vendor-manifest.json'),
-        sourceType: 'commonjs2',
-        name: './vendor'
+        manifest: require('./src/main/resources/ssr/vendor-manifest.json')
       })
     ].concat(isDevBuild ? [] : [
       // Plugins that apply in production builds only
@@ -80,11 +77,8 @@ module.exports = (env) => {
       })
     ]),
     output: {
-      libraryTarget: 'commonjs',
-      path: path.join(__dirname, 'src', 'main', 'ts', 'dist')
-    },
-    target: 'node',
-    devtool: 'inline-source-map'
+      path: path.join(__dirname, 'src', 'main', 'resources', 'ssr')
+    }
   });
 
   return [clientBundleConfig, serverBundleConfig];

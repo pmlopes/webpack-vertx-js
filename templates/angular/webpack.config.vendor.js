@@ -72,23 +72,22 @@ module.exports = (env) => {
   });
 
   const serverBundleConfig = merge(sharedConfig, {
-    target: 'node',
-    resolve: {mainFields: ['main']},
-    entry: {vendor: allModules.concat(['aspnet-prerendering'])},
+    entry: {
+      vendor: treeShakableModules
+    },
     output: {
-      path: path.join(__dirname, 'src', 'main', 'ts', 'dist'),
-      libraryTarget: 'commonjs2',
+      path: path.join(__dirname, 'src', 'main', 'resources', 'ssr')
     },
     module: {
       rules: [{test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize']}]
     },
     plugins: [
       new webpack.DllPlugin({
-        path: path.join(__dirname, 'src', 'main', 'ts', 'dist', '[name]-manifest.json'),
+        path: path.join(__dirname, 'src', 'main', 'resources', 'ssr', '[name]-manifest.json'),
         name: '[name]_[hash]'
       })
     ]
   });
 
   return [clientBundleConfig, serverBundleConfig];
-}
+};
