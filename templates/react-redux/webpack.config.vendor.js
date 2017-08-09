@@ -64,20 +64,5 @@ module.exports = (env) => {
     ])
   });
 
-  const serverBundleConfig = merge(sharedConfig, {
-    output: {
-      path: path.join(__dirname, 'src', 'main', 'resources', 'ssr')
-    },
-    module: {
-      rules: [{test: /\.css(\?|$)/, use: isDevBuild ? 'css-loader' : 'css-loader?minimize'}]
-    },
-    plugins: [
-      new webpack.DllPlugin({
-        path: path.join(__dirname, 'src', 'main', 'resources', 'ssr', '[name]-manifest.json'),
-        name: '[name]_[hash]'
-      })
-    ]
-  });
-
-  return [clientBundleConfig, serverBundleConfig];
+  return [clientBundleConfig];
 };

@@ -57,7 +57,7 @@
                   <resource>META-INF/services/io.vertx.core.spi.VerticleFactory</resource>
                 </transformer>
               </transformers>
-              <outputFile>${project.basedir}/${project.artifactId}-${project.version}.jar</outputFile>
+              <outputFile>${project.basedir}/target/${project.artifactId}-${project.version}-fat.jar</outputFile>
             </configuration>
           </execution>
         </executions>

@@ -60,26 +60,5 @@ module.exports = (env) => {
     ])
   });
 
-  // Configuration for server-side (prerendering) bundle suitable for running in Node
-  const serverBundleConfig = merge(sharedConfig, {
-    entry: {'main-server': './src/main/ts/boot.server.ts'},
-    plugins: [
-      new webpack.DllReferencePlugin({
-        context: __dirname,
-        manifest: require('./src/main/resources/ssr/vendor-manifest.json')
-      })
-    ].concat(isDevBuild ? [] : [
-      // Plugins that apply in production builds only
-      new AotPlugin({
-        tsConfigPath: './tsconfig.json',
-        entryModule: path.join(__dirname, 'src', 'main', 'ts', 'app', 'app.module.server#AppModule'),
-        exclude: ['./**/*.browser.ts']
-      })
-    ]),
-    output: {
-      path: path.join(__dirname, 'src', 'main', 'resources', 'ssr')
-    }
-  });
-
-  return [clientBundleConfig, serverBundleConfig];
+  return [clientBundleConfig];
 };

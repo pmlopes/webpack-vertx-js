@@ -55,19 +55,5 @@ module.exports = (env) => {
     ])
   });
 
-  // Configuration for server-side (prerendering) bundle suitable for running in Node
-  const serverBundleConfig = merge(sharedConfig(), {
-    entry: {'main-server': './src/main/ts/boot-server.tsx'},
-    plugins: [
-      new webpack.DllReferencePlugin({
-        context: __dirname,
-        manifest: require('./src/main/resources/ssr/vendor-manifest.json')
-      })
-    ],
-    output: {
-      path: path.join(__dirname, 'src', 'main', 'resources', 'ssr')
-    }
-  });
-
-  return [clientBundleConfig, serverBundleConfig];
+  return [clientBundleConfig];
 };
